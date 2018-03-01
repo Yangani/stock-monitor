@@ -1,0 +1,20 @@
+<div class="stock-container">
+  <div class="mat-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">Stock</div>
+      <div class="mat-header-cell">Price</div>
+      <div class="mat-header-cell">Date</div>
+      <div class="mat-header-cell">Time</div>
+      <div class="mat-header-cell"></div>
+    </div>
+    <div class="mat-row box-1" *ngFor="let stock of stocksListed; let i = index" (click)="showHistory(stock.ticker)">
+      <div class="mat-cell">{{stock.ticker}}</div>
+      <div class="mat-cell">{{stock.price}}</div>
+      <div class="mat-cell">{{stock.date}}</div>
+      <div class="mat-cell">{{stock.time}}</div>
+      <div class="mat-cell"><button mat-raised-button (click)="deleteStock(stock.ticker)">Delete</button></div>
+    </div>
+  </div>
+</div>
+
+<app-stock-quote></app-stock-quote>

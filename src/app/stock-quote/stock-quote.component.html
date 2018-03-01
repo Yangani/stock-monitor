@@ -1,0 +1,15 @@
+<div>
+  <!--Add stock button-->
+  <div class="add-stock-button">
+    <button mat-icon-button *ngIf="addStockButton" (click)="searchStock()"><i class="material-icons">add_circle</i></button>
+  </div>
+
+  <!--Search stock form field-->
+  <form class="add-stock-form" *ngIf="showSearchField" [formGroup]="searchForm" (submit)="addStock(searchForm)">
+    <mat-form-field>
+      <input matInput #input placeholder="Search stock" formControlName="stockTicker" required>
+      <button mat-icon-button matSuffix><i class="material-icons">search</i></button>
+    </mat-form-field>
+  </form>
+</div>
+

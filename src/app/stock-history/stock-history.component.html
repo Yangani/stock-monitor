@@ -1,0 +1,27 @@
+<p>30 Day stock history</p>
+<mat-card>
+  <mat-card-title>
+    <span><a class="material-icons" aria-hidden="true" routerLink="/home">navigate_before</a></span>
+    <span>{{stockData.ticker}}</span>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Date</div>
+        <div class="mat-header-cell">Open</div>
+        <div class="mat-header-cell">High</div>
+        <div class="mat-header-cell">Low</div>
+        <div class="mat-header-cell">Close</div>
+        <div class="mat-header-cell">Volume</div>
+      </div>
+      <div class="mat-row" *ngFor="let date of objectKeys(stockData.history)|slice:0:30; let i = index">
+        <div class="mat-cell">{{date}}</div>
+        <div class="mat-cell">{{stockData.history[date]["1. open"]}}</div>
+        <div class="mat-cell">{{stockData.history[date]["2. high"]}}</div>
+        <div class="mat-cell">{{stockData.history[date]["3. low"]}}</div>
+        <div class="mat-cell">{{stockData.history[date]["4. close"]}}</div>
+        <div class="mat-cell">{{stockData.history[date]["5. volume"]}}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
