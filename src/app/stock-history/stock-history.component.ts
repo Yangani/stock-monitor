@@ -7,7 +7,7 @@ import {ApiService} from '../service/api.service';
   styleUrls: ['./stock-history.component.sass']
 })
 export class StockHistoryComponent implements OnInit {
-  stockData: object = {};
+  stockData;
   objectKeys = Object.keys;
 
   constructor(private _apiService: ApiService) { }
@@ -18,13 +18,15 @@ export class StockHistoryComponent implements OnInit {
   }
 
   stockHistory(ticker: string): void {
+    let data = {};
 
     this._apiService.getStockHistory(ticker)
       .subscribe(res => {
         //Populate date object data;
-        this.stockData['ticker'] = res["Meta Data"]["2. Symbol"];
-        this.stockData["history"] = res["Time Series (Daily)"];
+        data['ticker'] = res["Meta Data"]["2. Symbol"];
+        data['history'] = res["Time Series (Daily)"];
       });
+    this.stockData = data;
   }
 
 
