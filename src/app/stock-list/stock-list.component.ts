@@ -16,13 +16,18 @@ import { ApiService } from '../service/api.service';
 export class StockListComponent implements OnInit {
 
   constructor(private _apiService: ApiService,
-              private router: Router) { }
+              private router: Router) {
+
+    setInterval(() => {
+      this._apiService.getAllStocks(this._apiService.stocks);
+    } , 60000);
+  }
 
   stocksListed = this._apiService.stocks;
 
   ngOnInit() {
     //Get Walmart stock on Init
-    this._apiService.addStock("WMT");
+    this._apiService.addStock('WMT');
   }
 
   deleteStock(ticker: string): void {
@@ -31,6 +36,6 @@ export class StockListComponent implements OnInit {
 
   showHistory(ticker: string): void {
     this._apiService.selectedStock = ticker;
-    this.router.navigate(["/history"]);
+    this.router.navigate(['/history']);
   }
 }

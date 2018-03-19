@@ -47,6 +47,31 @@ export class ApiService {
       );
   }
 
+  getAllStocks(stocks) {
+    stocks.forEach((stock, index) => {
+      this.getStock(stock.ticker)
+        .subscribe(
+          res => {
+            let dateTime: string;
+
+            //Populate date object data;
+            stock.ticker = res['Meta Data']['2. Symbol'];
+            dateTime = res['Meta Data']['3. Last Refreshed'];
+            stock.date = dateTime.substr(0, 10);
+            stock.time = dateTime.substr(11);
+            stock.price = res['Time Series (1min)'][dateTime]['4. close'];
+
+            //Add stock to stock list array
+            this.stocks[index] = stock;
+          },
+          error => {
+            alert(error.message);
+            throw new Error(error.message);
+          }
+        );
+    });
+  }
+
 
   //Fetch stock from Alpha Vantage API
   getStock(ticker: string) {
