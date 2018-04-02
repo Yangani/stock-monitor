@@ -2,21 +2,43 @@
 <app-stock-quote></app-stock-quote>
 
 <!--Stock qoutes list-->
-<div class="stock-container">
-  <div class="mat-table">
-    <div class="mat-header-row">
-      <div class="mat-header-cell">Stock</div>
-      <div class="mat-header-cell">Price</div>
-      <div class="mat-header-cell">Date</div>
-      <div class="mat-header-cell">Time</div>
-      <div class="mat-header-cell"></div>
+<div class="stock-container" fxLayout="column">
+  <div class="nonCard" fxHide fxShow.gt-xs>
+    <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Stock</div>
+          <div class="mat-header-cell">Price</div>
+          <div class="mat-header-cell">Date</div>
+          <div class="mat-header-cell">Time</div>
+          <div class="mat-header-cell"></div>
+        </div>
+        <div class="mat-row box-1" *ngFor="let stock of stocksListed; let i = index" (click)="showHistory(stock.ticker)">
+          <div class="mat-cell">{{stock.ticker}}</div>
+          <div class="mat-cell">{{stock.price}}</div>
+          <div class="mat-cell">{{stock.date}}</div>
+          <div class="mat-cell">{{stock.time}}</div>
+          <div class="mat-cell"><button mat-raised-button (click)="deleteStock(stock.ticker)">Delete</button></div>
+        </div>
+      </div>
     </div>
-    <div class="mat-row box-1" *ngFor="let stock of stocksListed; let i = index" (click)="showHistory(stock.ticker)">
-      <div class="mat-cell">{{stock.ticker}}</div>
-      <div class="mat-cell">{{stock.price}}</div>
-      <div class="mat-cell">{{stock.date}}</div>
-      <div class="mat-cell">{{stock.time}}</div>
-      <div class="mat-cell"><button mat-raised-button (click)="deleteStock(stock.ticker)">Delete</button></div>
-    </div>
+  <div class="cards" fxHide fxShow.lt-sm>
+    <mat-card class="theCards" *ngFor="let stock of stocksListed; let i = index" (click)="showHistory(stock.ticker)">
+      <mat-card-header class="cardHeader">
+        <mat-card-title class="cardTitle">{{stock.ticker}}</mat-card-title>
+        <!-- <mat-card-subtitle>Stock Name</mat-card-subtitle> -->
+      </mat-card-header>
+      <mat-card-content fxLayout="row" class="cardPrice">
+        {{stock.price}}
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-toolbar class="cardAction">
+            <span>Last Updated: <b>{{stock.date}} at {{stock.time}}</b></span>
+            <span class="spacer"></span>
+            <button mat-icon-button id="deleteResponsive" (click)="deleteStock(stock.ticker)">
+              <mat-icon>delete</mat-icon>
+            </button>
+        </mat-toolbar>
+      </mat-card-actions>
+    </mat-card>  
   </div>
 </div>
